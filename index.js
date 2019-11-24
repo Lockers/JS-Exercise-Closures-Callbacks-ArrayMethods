@@ -48,8 +48,8 @@ function processFirstItem(stringList, callback) {
  * [2] Invoking `processLength` passing `[]` and `(num) => "There are " + num`,
  * should return "There are 0".
 */
-function processLength(/* CODE HERE */) {
-  /* CODE HERE */
+function processLength(list, callback) {
+  return callback(list.length)
 }
 
 /**
@@ -66,8 +66,8 @@ function processLength(/* CODE HERE */) {
  * Invoking `processLastItem` passing `['foo', 'bar']` and `(str) => str + str`,
  * should return 'barbar'.
 */
-function processLastItem(/* CODE HERE */) {
-  /* CODE HERE */
+function processLastItem(stringlist, callback) {
+  return callback(stringlist[stringlist.length - 1])
 }
 
 /**
@@ -87,8 +87,10 @@ function processLastItem(/* CODE HERE */) {
  * [2] Invoking `processSum` passing `[]` and `(num) => num + 1000`,
  * should return 1000.
 */
-function processSum(/* CODE HERE */) {
-  /* CODE HERE */
+function processSum(numberlist, callback) {
+  let num = 0;
+  numberlist.forEach(item => num = num + item);
+  return callback(num);
 }
 
 /**
@@ -109,8 +111,9 @@ function processSum(/* CODE HERE */) {
  * [2] Invoking `processProduct` passing 25 and 0 and `(num) => num + 1000`,
  * should return 1000.
 */
-function processProduct(/* CODE HERE */) {
-  /* CODE HERE */
+function processProduct(num1, num2, callback) {
+  const num = num1 * num2;
+  return callback(num);
 }
 
 /**
@@ -133,8 +136,11 @@ function processProduct(/* CODE HERE */) {
  * "lady gaga" and `['foo', 'bar']` and `(bool) => bool ? 'nice!' : 'sad'`,
  * should return "sad".
 */
-function processContains(/* CODE HERE */) {
-  /* CODE HERE */
+function processContains(item, list, callback) {
+  list.forEach(thing => {
+    const meh = Object.is(thing, item)
+    return callback(meh)
+  })
 }
 
 /**
@@ -156,8 +162,10 @@ function processContains(/* CODE HERE */) {
  * [2] Invoking `processDuplicateFree` passing `[1,1,2,2,3]` and `(arr) => arr.length`,
  * should return 3.
 */
-function processDuplicateFree(/* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS */) {
-  /* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS */
+function processDuplicateFree(list, callback) {
+  let unique = (list) => list.filter((v, i) => list.indexOf(v) === i)
+  const lol = unique(list)
+  return callback(lol)
 }
 
 /////////////// HIGHER-ORDER ARRAY METHODS ///////////////
@@ -178,8 +186,11 @@ function processDuplicateFree(/* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS
  * @returns an array with all the runners' full names in the following format: "Smith, John".
  * The full names appear in the array in the same order the runners appear in the `runners` array.
 */
-function getFullNames(/* CODE HERE */) {
-  /* CODE HERE */
+function getFullNames(runners) {
+  const newArray = runners.map(item => {
+    return(`${item.last_name}, ${item.first_name}`)
+  })
+  return newArray;
 }
 
 /**
@@ -194,8 +205,9 @@ function getFullNames(/* CODE HERE */) {
  * @returns an array with all the runners' first names in ALL CAPS.
  * The first names appear in the array in the same order the runners appear in the `runners` array.
 */
-function firstNamesAllCaps(/* CODE HERE */) {
-  /* CODE HERE */
+function firstNamesAllCaps(runners) {
+  return runners.map(item => item.first_name.toUpperCase())
+  
 }
 
 /**
@@ -211,8 +223,9 @@ function firstNamesAllCaps(/* CODE HERE */) {
  * @returns an array containing only the runners that use the given `tShirtSize`.
  * The runners in the array appear in the same order they appear in the `runners` array.
 */
-function getRunnersByTShirtSize(/* CODE HERE */) {
-  /* CODE HERE */
+function getRunnersByTShirtSize(runners, tShirtSize) {
+  return runners.filter(item => item.shirt_size === tShirtSize)
+  
 }
 
 /**
@@ -225,8 +238,10 @@ function getRunnersByTShirtSize(/* CODE HERE */) {
  * @param runners array of runners like the one inside the /data/runners.js file.
  * @returns a number which is the sum of the donations by all runners.
 */
-function tallyUpDonations(/* CODE HERE */) {
-  /* CODE HERE */
+function tallyUpDonations(runners) {
+  return runners.reduce(function (accumulator, currentvalue) {
+    return accumulator + currentvalue.donation
+  }, 0)
 }
 
 /////////////// CLOSURES ///////////////
@@ -247,8 +262,11 @@ function tallyUpDonations(/* CODE HERE */) {
 */
 function counterMaker() {
   // BROKEN CODE STARTS
+  // @ts-ignore
   const count = 0;
+  // @ts-ignore
   function counter() {
+    // @ts-ignore
     ++count
   }
   // BROKEN CODE ENDS
@@ -282,21 +300,36 @@ function counterMakerWithLimit(/* CODE HERE */) {
 /////////////// END OF CHALLENGE ///////////////
 /////////////// END OF CHALLENGE ///////////////
 
+// @ts-ignore
 if (typeof exports !== 'undefined') {
   // IGNORE: Test/Env Detected
   // For Node/Non-browser test env
+  // @ts-ignore
   module.exports = module.exports || {}
+  // @ts-ignore
   if (processFirstItem) { module.exports.processFirstItem = processFirstItem }
+  // @ts-ignore
   if (processLength) { module.exports.processLength = processLength }
+  // @ts-ignore
   if (processLastItem) { module.exports.processLastItem = processLastItem }
+  // @ts-ignore
   if (processSum) { module.exports.processSum = processSum }
+  // @ts-ignore
   if (processProduct) { module.exports.processProduct = processProduct }
+  // @ts-ignore
   if (processContains) { module.exports.processContains = processContains }
+  // @ts-ignore
   if (processDuplicateFree) { module.exports.processDuplicateFree = processDuplicateFree }
+  // @ts-ignore
   if (getFullNames) { module.exports.getFullNames = getFullNames }
+  // @ts-ignore
   if (firstNamesAllCaps) { module.exports.firstNamesAllCaps = firstNamesAllCaps }
+  // @ts-ignore
   if (getRunnersByTShirtSize) { module.exports.getRunnersByTShirtSize = getRunnersByTShirtSize }
+  // @ts-ignore
   if (tallyUpDonations) { module.exports.tallyUpDonations = tallyUpDonations }
+  // @ts-ignore
   if (counterMaker) { module.exports.counterMaker = counterMaker }
+  // @ts-ignore
   if (counterMakerWithLimit) { module.exports.counterMakerWithLimit = counterMakerWithLimit }
 }
