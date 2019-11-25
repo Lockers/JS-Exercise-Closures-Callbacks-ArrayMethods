@@ -137,10 +137,11 @@ function processProduct(num1, num2, callback) {
  * should return "sad".
 */
 function processContains(item, list, callback) {
-  list.forEach(thing => {
-    const meh = Object.is(thing, item)
-    return callback(meh)
-  })
+  if (list.includes(item)) {
+    return callback(true)
+  }
+  return callback(false)
+
 }
 
 /**
@@ -260,17 +261,18 @@ function tallyUpDonations(runners) {
  * counter() // should return 2
  * etc
 */
+
 function counterMaker() {
   // BROKEN CODE STARTS
-  // @ts-ignore
-  const count = 0;
-  // @ts-ignore
-  function counter() {
-    // @ts-ignore
-    ++count
+  let count = -1;
+ return function counter() {
+    count += 1;
+    return count;
   }
+};
+  
   // BROKEN CODE ENDS
-}
+
 
 /**
  * ### Challenge `counterMakerWithLimit`
@@ -292,8 +294,15 @@ function counterMaker() {
  * counter() // should return 0
  * etc
 */
-function counterMakerWithLimit(/* CODE HERE */) {
-  /* CODE HERE */
+function counterMakerWithLimit(limit) {
+  let count = -1;
+  return function counter() {
+    if (count === limit) {
+      count = -1
+    }
+    count += 1;
+    return count;
+  }
 }
 
 /////////////// END OF CHALLENGE ///////////////
